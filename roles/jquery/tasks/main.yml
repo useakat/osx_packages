@@ -1,0 +1,8 @@
+- name: installed check
+  shell: bower list | grep jquery
+  ignore_errors: True
+  register: jquery_installed
+
+- name: install jquery
+  shell: bower install jquery
+  when: jquery_installed|failed
