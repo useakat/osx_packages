@@ -1,0 +1,2 @@
+nodejs_version: v0.12.5
+nodebrew_path: $HOME/.nodebrew/current/bin

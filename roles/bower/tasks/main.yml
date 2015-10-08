@@ -1,0 +1,8 @@
+- name: installed check
+  shell: npm list -g | grep bower
+  ignore_errors: True
+  register: bower_installed
+
+- name: install bower
+  shell: npm install -g bower
+  when: bower_installed|failed

@@ -1,0 +1,28 @@
+- name: download nodebrew
+  get_url:
+    url: http://git.io/nodebrew
+    dest: ~/nodebrew
+  register: nodebrew_download
+
+- name: install nodebrew
+  shell: perl ~/nodebrew setup
+  when: nodebrew_download|changed
+
+- name: export nodebrew path
+  lineinfile:
+    dest: ~/.bash_profile
+    state: present
+    create: yes
+    line: 'export PATH={{nodebrew_path}}:$PATH'
+
+- name: installed check
+  shell: nodebrew list | grep {{ nodejs_version }}
+  ignore_errors: True
+  register: nodejs_installed
+
+- name: install nodejs
+  shell: nodebrew install-binary {{ nodejs_version }}
+  when: nodejs_installed|failed
+
+- name: switch version
+  shell: nodebrew use {{ nodejs_version }}
