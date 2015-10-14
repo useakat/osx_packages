@@ -4,4 +4,5 @@
     PATH: "{{ ansible_env.PATH }}:{{ nodebrew_path }}"
   roles:
 #    - nodejs
-    - bower
+#    - bower
+    - jquery
